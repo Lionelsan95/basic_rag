@@ -1,0 +1,2 @@
+
+print('Local RAG! application')
