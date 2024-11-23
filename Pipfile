@@ -10,8 +10,11 @@ langchain-ollama = "*"
 black = "*"
 langchain = "*"
 langchain-openai = "*"
-redis = "*"
 nltk = "*"
+fastapi = "*"
+uvicorn = "*"
+celery = "*"
+redis = "*"
 
 [dev-packages]
 
