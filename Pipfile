@@ -4,12 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-langchain = "*"
 langchain-community = "*"
 langchain-chroma = "*"
 langchain-ollama = "*"
 black = "*"
-beautifulsoup4 = "*"
+langchain = "*"
+langchain-openai = "*"
+nltk = "*"
+fastapi = "*"
+uvicorn = "*"
+celery = "*"
+redis = "*"
 
 [dev-packages]
 
