@@ -9,5 +9,5 @@ __all__ = [
     "load_config",
     "get_env_variable",
     "generate_hash",
-    "measure_execution_time"
+    "measure_execution_time",
 ]

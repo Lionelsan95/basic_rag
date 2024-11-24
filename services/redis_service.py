@@ -3,11 +3,15 @@ import hashlib
 import logging
 
 # Connect to Redis
-redis_client = redis.StrictRedis(host="localhost", port=6379, db=0, decode_responses=True)
+redis_client = redis.StrictRedis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
+
 
 def hash_url(url: str) -> str:
     """Create a unique hash for a URL."""
     return hashlib.sha256(url.encode()).hexdigest()
+
 
 def is_url_scraped(url: str) -> bool:
     """
@@ -23,6 +27,7 @@ def is_url_scraped(url: str) -> bool:
     is_scraped = redis_client.exists(key)
     logging.info(f"Checked URL '{url}' - Scraped: {is_scraped}")
     return is_scraped
+
 
 def mark_url_as_scraped(url: str, ttl: int = None):
     """

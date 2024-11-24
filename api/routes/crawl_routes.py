@@ -1,9 +1,13 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, HttpUrl
-from pipelines.crawl_pipeline import crawl_and_index_pipeline, async_crawl_and_index_pipeline
+from pipelines.crawl_pipeline import (
+    crawl_and_index_pipeline,
+    async_crawl_and_index_pipeline,
+)
 from celery.result import AsyncResult
 
 router = APIRouter()
+
 
 class CrawlRequest(BaseModel):
     url: HttpUrl

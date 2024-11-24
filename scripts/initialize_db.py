@@ -2,10 +2,11 @@ from services.chromadb_service import index_documents
 import os
 import logging
 
+
 def clear_chroma_db(persist_directory="data/db_persistent"):
     """
     Clears the ChromaDB storage directory.
-    
+
     Args:
         persist_directory (str): Path to the ChromaDB storage directory.
     """
@@ -17,6 +18,7 @@ def clear_chroma_db(persist_directory="data/db_persistent"):
     else:
         logging.warning(f"ChromaDB directory does not exist: {persist_directory}")
 
+
 def initialize_chroma_db():
     """
     Initializes ChromaDB with default content for development or testing.
@@ -25,12 +27,13 @@ def initialize_chroma_db():
         logging.info("Initializing ChromaDB with sample documents...")
         sample_docs = [
             {"content": "Sample document 1", "metadata": {"source": "test_source"}},
-            {"content": "Sample document 2", "metadata": {"source": "test_source"}}
+            {"content": "Sample document 2", "metadata": {"source": "test_source"}},
         ]
         index_documents(sample_docs)
         logging.info("ChromaDB initialization complete.")
     except Exception as e:
         logging.error(f"Error initializing ChromaDB: {e}", exc_info=True)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
