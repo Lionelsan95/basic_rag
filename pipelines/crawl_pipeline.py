@@ -3,6 +3,8 @@ from services.document_loader import crawl_website
 from services.chromadb_service import index_documents
 from services.redis_service import is_url_scraped, mark_url_as_scraped
 from celery_app import celery_app
+from utils.chunking import split_documents_into_chunks
+
 
 def crawl_and_index_pipeline(url: str) -> str:
     """
@@ -26,9 +28,13 @@ def crawl_and_index_pipeline(url: str) -> str:
         if not documents:
             raise ValueError(f"No documents found for URL: {url}")
 
-        # Step 3: Index the documents into ChromaDB
+        # Step 3: Chunk retrieve document for a better search later
         logging.info(f"Indexing {len(documents)} documents.")
-        index_documents(documents)
+        chunked_documents = split_documents_into_chunks(documents)
+
+        # Step 4: Index the documents into ChromaDB
+        logging.info(f"Indexing {len(documents)} documents.")
+        index_documents(chunked_documents)
 
         # Mark the URL as processed
         mark_url_as_scraped(url)
@@ -38,6 +44,7 @@ def crawl_and_index_pipeline(url: str) -> str:
     except Exception as e:
         logging.error(f"Error in crawling and indexing pipeline: {e}", exc_info=True)
         raise
+
 
 @celery_app.task
 def async_crawl_and_index_pipeline(url: str) -> str:
@@ -64,5 +71,7 @@ def async_crawl_and_index_pipeline(url: str) -> str:
         logging.info(f"URL '{url}' successfully processed and indexed.")
         return f"URL '{url}' successfully processed and indexed."
     except Exception as e:
-        logging.error(f"Error in async crawling and indexing pipeline: {e}", exc_info=True)
+        logging.error(
+            f"Error in async crawling and indexing pipeline: {e}", exc_info=True
+        )
         raise

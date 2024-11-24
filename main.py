@@ -1,12 +1,16 @@
 import logging
-from pipelines.crawl_pipeline import crawl_and_index_pipeline, async_crawl_and_index_pipeline
+from pipelines.crawl_pipeline import (
+    crawl_and_index_pipeline,
+    async_crawl_and_index_pipeline,
+)
 from pipelines.query_pipeline import run_query_pipeline
 from utils.logging_config import configure_logging
 from utils.validators import is_valid_url
 
+
 def main():
     """
-    CLI entry point for the application. 
+    CLI entry point for the application.
     This script allows users to interact with the RAG pipeline.
     """
     # Configure logging
@@ -82,6 +86,7 @@ def main():
     except Exception as e:
         logging.critical(f"Critical error in CLI execution: {e}", exc_info=True)
         print("An unexpected error occurred. Please check the logs.")
+
 
 if __name__ == "__main__":
     main()

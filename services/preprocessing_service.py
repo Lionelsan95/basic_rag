@@ -19,6 +19,7 @@ DetectorFactory.seed = 0
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words("english"))
 
+
 def clean_html_content(html: str) -> str:
     """
     Remove HTML tags and extract meaningful text from raw HTML.
@@ -30,7 +31,7 @@ def clean_html_content(html: str) -> str:
         str: Cleaned text content.
     """
     soup = BeautifulSoup(html, "html.parser")
-    
+
     # Remove script, style, and metadata
     for tag in soup(["script", "style", "meta", "noscript"]):
         tag.decompose()
@@ -43,6 +44,7 @@ def clean_html_content(html: str) -> str:
 
     return text
 
+
 def detect_language(text: str) -> str:
     """
     Detect the language of the text.
@@ -54,6 +56,7 @@ def detect_language(text: str) -> str:
         str: Detected language code (e.g., 'en').
     """
     return detect(text)
+
 
 def preprocess_text(text: str, language: str = "en") -> str:
     """
@@ -74,11 +77,13 @@ def preprocess_text(text: str, language: str = "en") -> str:
 
     # Remove stopwords and lemmatize tokens
     processed_tokens = [
-        lemmatizer.lemmatize(token) for token in tokens
+        lemmatizer.lemmatize(token)
+        for token in tokens
         if token.isalpha() and token not in stop_words
     ]
 
     return " ".join(processed_tokens)
+
 
 def filter_quality(text: str, min_length: int = 50) -> bool:
     """

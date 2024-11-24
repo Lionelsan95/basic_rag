@@ -1,7 +1,8 @@
-from services.llm_interface import query_llm_with_retriever
+from services.llm_interface import query_llm
 import logging
 
-def query_llm_pipeline(question: str) -> str:
+
+def query_llm_pipeline(context: str, question: str) -> str:
     """
     Pipeline to query the LLM using a retriever for fetching context.
 
@@ -14,9 +15,9 @@ def query_llm_pipeline(question: str) -> str:
     """
     try:
         logging.info("Executing LLM query pipeline.")
-        
+
         # Use the updated query method from services
-        response = query_llm_with_retriever(question)
+        response = query_llm(context, question)
         logging.info("Pipeline received response from LLM.")
         return response
     except Exception as e:

@@ -1,7 +1,13 @@
 from langchain_community.document_loaders import RecursiveUrlLoader
 from langchain.docstore.document import Document
-from services.preprocessing_service import clean_html_content, detect_language, preprocess_text, filter_quality
+from services.preprocessing_service import (
+    clean_html_content,
+    detect_language,
+    preprocess_text,
+    filter_quality,
+)
 import logging
+
 
 def crawl_website(url: str, max_docs: int = 20) -> list[Document]:
     """
@@ -37,13 +43,17 @@ def crawl_website(url: str, max_docs: int = 20) -> list[Document]:
                 continue
 
             # Add the cleaned and preprocessed content as a LangChain Document
-            documents.append(Document(page_content=preprocessed_text, metadata=doc.metadata))
+            documents.append(
+                Document(page_content=preprocessed_text, metadata=doc.metadata)
+            )
 
             if len(documents) >= max_docs:
                 logging.info(f"Reached max_docs limit of {max_docs}. Stopping crawl.")
                 break
 
-        logging.info(f"Successfully crawled and preprocessed {len(documents)} documents from: {url}")
+        logging.info(
+            f"Successfully crawled and preprocessed {len(documents)} documents from: {url}"
+        )
         return documents
     except Exception as e:
         logging.error(f"Error crawling website {url}: {e}", exc_info=True)

@@ -5,14 +5,17 @@ import logging
 
 router = APIRouter()
 
+
 # Input models
 class ScrapeRequest(BaseModel):
     url: HttpUrl
+
 
 class RAGRequest(BaseModel):
     user_name: str
     url: HttpUrl
     question: str
+
 
 @router.post("/scrape")
 async def scrape_and_index(input_data: ScrapeRequest):
@@ -25,6 +28,7 @@ async def scrape_and_index(input_data: ScrapeRequest):
     except Exception as e:
         logging.error(f"Error during scraping: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post("/rag")
 async def handle_rag_request(input_data: RAGRequest):
@@ -40,4 +44,6 @@ async def handle_rag_request(input_data: RAGRequest):
         }
     except Exception as e:
         logging.error(f"Error during RAG processing: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail="An error occurred during processing.")
+        raise HTTPException(
+            status_code=500, detail="An error occurred during processing."
+        )

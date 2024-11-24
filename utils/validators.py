@@ -1,12 +1,13 @@
 import re
 
+
 def is_valid_url(url: str) -> bool:
     """
     Validate if a given string is a properly formatted URL.
-    
+
     Args:
         url (str): The URL to validate.
-    
+
     Returns:
         bool: True if the URL is valid, False otherwise.
     """

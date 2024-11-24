@@ -1,28 +1,31 @@
 import time
 import hashlib
 
+
 def generate_hash(value: str) -> str:
     """
     Generate a SHA256 hash for a given string.
-    
+
     Args:
         value (str): The string to hash.
-    
+
     Returns:
         str: The resulting hash.
     """
     return hashlib.sha256(value.encode()).hexdigest()
 
+
 def measure_execution_time(func):
     """
     Decorator to measure the execution time of a function.
-    
+
     Args:
         func (callable): The function to measure.
-    
+
     Returns:
         callable: The wrapped function.
     """
+
     def wrapper(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
@@ -32,6 +35,7 @@ def measure_execution_time(func):
         return result
 
     return wrapper
+
 
 def format_retrieved_documents(retrieved_docs: list) -> str:
     """
@@ -46,7 +50,9 @@ def format_retrieved_documents(retrieved_docs: list) -> str:
     formatted_docs = []
     for idx, doc in enumerate(retrieved_docs, start=1):
         doc_content = doc.page_content.strip()
-        doc_metadata = doc.metadata.get("url", "Unknown Source")  # Use metadata if available
+        doc_metadata = doc.metadata.get(
+            "url", "Unknown Source"
+        )  # Use metadata if available
         formatted_docs.append(f"[Doc {idx}] {doc_content}\n(Source: {doc_metadata})\n")
 
     return "\n".join(formatted_docs)

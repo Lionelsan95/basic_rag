@@ -1,6 +1,8 @@
 import logging
 from pipelines.llm_interface import query_llm_pipeline
 from services.chromadb_service import get_relevant_documents
+from utils.common import format_retrieved_documents
+
 
 def run_query_pipeline(question: str) -> str:
     """
@@ -14,9 +16,11 @@ def run_query_pipeline(question: str) -> str:
     """
     try:
         # Step 1: Retrieve context from ChromaDB
-        context = get_relevant_documents(question)
-        if not context:
+        relevant_documents = get_relevant_documents(question)
+        if not relevant_documents:
             raise ValueError("No relevant context found in the database.")
+
+        context = format_retrieved_documents(relevant_documents)
 
         # Step 2: Query the LLM
         logging.info(f"Querying the LLM for the question: {question}")

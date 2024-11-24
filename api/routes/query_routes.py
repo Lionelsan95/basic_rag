@@ -4,8 +4,10 @@ from pipelines.query_pipeline import run_query_pipeline
 
 router = APIRouter()
 
+
 class QueryRequest(BaseModel):
     question: str
+
 
 @router.post("/query")
 async def handle_query(input_data: QueryRequest):

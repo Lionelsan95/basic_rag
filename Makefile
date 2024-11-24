@@ -11,7 +11,7 @@ install:
 
 .PHONY: run
 run:
-	uvicorn $(APP) --reload
+	uvicorn $(APP) --reload --port=8089
 
 .PHONY: worker
 worker:

@@ -1,13 +1,14 @@
 from services.chromadb_service import retrieve_context
 import logging
 
+
 def get_relevant_context(query: str) -> str:
     """
     Retrieve relevant context for a given query.
-    
+
     Args:
         query (str): The query to search for.
-    
+
     Returns:
         str: Retrieved context.
     """
